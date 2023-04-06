@@ -1,0 +1,120 @@
+#include <iostream>
+#define MAX_SIZE 100
+#include <chrono>
+using namespace std;
+
+class stack{
+
+    int top;
+    int buffer[MAX_SIZE];
+
+public :
+    stack()
+    {
+        top = -1;
+    }
+
+    bool isFull()
+    {
+        if (top+1 >= MAX_SIZE)
+            return true;
+        return false;
+
+    }
+
+    bool isEmpty()
+    {
+        if (top<0)
+        {
+            return true;
+        }
+        return false;
+
+    }
+
+    int push(int a)
+    {
+        if (!isFull())
+        {
+            top++;
+            buffer[top] = a;
+        }
+        else
+        {
+            cout<<"Stack Overflow..."<<endl;
+            return 0;
+        }
+    }
+
+    int pop()
+    {
+        if (!isEmpty())
+        {
+            top--;
+            return buffer[top+1];
+        }
+        else
+        {
+            cout<<"Empty Stack"<<endl;
+            return 0;
+        }
+    }
+
+    int stackTop()
+    {
+        if (!isEmpty())
+        {
+            return buffer[top];
+        }
+
+        else
+        {
+            cout<<"Empty Stack"<<endl;
+            return 0;
+        }
+    }
+
+    void display()
+    {
+        for (int i=0;i<=top;i++)
+        {
+            cout<<buffer[i]<<" ";
+        }
+        cout<<endl;
+    }
+
+};
+
+int main()
+{
+    auto start_time = std::chrono::high_resolution_clock::now();
+    stack stack1;
+    stack1.push(8);
+    stack1.push(10);
+    stack1.push(5);
+    stack1.push(11);
+    stack1.push(15);
+    stack1.push(23);
+    stack1.push(6);
+    stack1.push(18);
+    stack1.push(20);
+    stack1.push(17);
+    stack1.display();
+    stack1.pop();
+    stack1.pop();
+    stack1.pop();
+    stack1.pop();
+    stack1.pop();
+    stack1.display();
+    stack1.push(4);
+    stack1.push(30);
+    stack1.push(3);
+    stack1.push(1);
+    stack1.display();
+    auto end_time = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+    auto duration_microseconds = duration.count();
+    cout<<"Time taken : "<<duration_microseconds<<" microseconds"<<endl;
+
+    return 0;
+}
